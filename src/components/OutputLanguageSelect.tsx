@@ -18,7 +18,11 @@ export function OutputLanguageSelect({
   setLanguage: Dispatch<SetStateAction<string>>
 }) {
   return (
-    <Select>
+    <Select
+      onValueChange={(value) => {
+        setLanguage(value)
+      }}
+    >
       <SelectTrigger className='w-full'>
         <SelectValue placeholder='Languages' />
       </SelectTrigger>

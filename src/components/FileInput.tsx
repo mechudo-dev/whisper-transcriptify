@@ -1,6 +1,6 @@
 'use client'
 
-import { ACCEPTED_FILE_TYPES } from '@/lib/const'
+import { ACCEPTED_FILE_TYPES, EXPORT_FORMATS } from '@/lib/const'
 import {
   ArrowDownToLine,
   Droplet,
@@ -8,7 +8,17 @@ import {
   Upload,
   UploadCloud,
 } from 'lucide-react'
-import { Dispatch, DragEvent, DragEventHandler, SetStateAction, useState } from 'react'
+import {
+  Dispatch,
+  DragEvent,
+  DragEventHandler,
+  SetStateAction,
+  useState,
+} from 'react'
+import { useToast } from './ui/use-toast'
+
+export const acceptedFileTypes =
+  'mp3,.mp4,.mpeg,.mpga,.m4a,.wav,.ogg,.webm;max-size=25MB'
 
 export function FileInput({
   file,
@@ -17,12 +27,13 @@ export function FileInput({
   file: File | null
   setFile: Dispatch<SetStateAction<File | null>>
 }) {
+  const { toast } = useToast()
   const [drag, setDrag] = useState(false)
 
   const handleDragOver = (e: DragEvent) => {
-    e.preventDefault();
-    setDrag(true);
-  };
+    e.preventDefault()
+    setDrag(true)
+  }
 
   const handleDragLeave = (e: DragEvent) => {
     e.preventDefault()
@@ -32,15 +43,31 @@ export function FileInput({
   const handleDrop = (e: DragEvent) => {
     e.preventDefault()
     setDrag(false)
-    if (e.dataTransfer && e.dataTransfer.files.length > 0) {
-      setFile(e.dataTransfer.files[0])
+    const file = e.dataTransfer.files[0]
+    if (file && isValidFile(file)) {
+      setFile(file)
     }
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
-      setFile(e.target.files[0])
+      const file = e.target.files[0]
+      if (isValidFile(file)) {
+        setFile(file)
+      }
     }
+  }
+
+  const isValidFile = (file: File) => {
+    if (file.size > 25 * 1024 * 1024) {
+      toast({
+        variant: 'destructive',
+        title: 'File size exceeds the maximum limit of 25MB.',
+        description: 'Select a file with a size less than 25MB.',
+      })
+      return false
+    }
+    return true
   }
 
   return (
@@ -85,8 +112,9 @@ export function FileInput({
             id='dropzone-file'
             type='file'
             className='hidden'
+            multiple={false}
             onChange={handleChange}
-            accept={ACCEPTED_FILE_TYPES}
+            accept={acceptedFileTypes}
           />
         </div>
       )}

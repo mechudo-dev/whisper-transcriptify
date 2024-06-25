@@ -7,7 +7,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { OUTPUT_LANGUAGES } from '@/lib/const'
+import { EXPORT_FORMATS } from '@/lib/const'
 import { Dispatch, SetStateAction } from 'react'
 
 export function ExportFormatSelect({
@@ -18,14 +18,18 @@ export function ExportFormatSelect({
   setExportFormat: Dispatch<SetStateAction<string>>
 }) {
   return (
-    <Select>
+    <Select
+      onValueChange={(value) => {
+        setExportFormat(value)
+      }}
+    >
       <SelectTrigger className='w-full'>
         <SelectValue placeholder='Export Formats' />
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
           <SelectLabel>Export Formats</SelectLabel>
-          {OUTPUT_LANGUAGES.map((language) => (
+          {EXPORT_FORMATS.map((language) => (
             <SelectItem key={language} value={language}>
               {language}
             </SelectItem>

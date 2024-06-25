@@ -25,11 +25,11 @@ import { ExportFormatSelect } from './ExportFormatSelect'
 export function TranscriptCard() {
   const { toast } = useToast()
   const [APIKey, setApiKey] = useState<string>('')
-  const [transcription, setTranscription] = useState<string>('')
   const [file, setFile] = useState<File | null>(null)
-  const [isEditorVisible, setIsEditorVisible] = useState<Boolean>(false)
   const [language, setLanguage] = useState<string>('')
   const [exportFormat, setExportFormat] = useState<string>('')
+  const [transcription, setTranscription] = useState<string>('')
+  const [isEditorVisible, setIsEditorVisible] = useState<Boolean>(false)
 
   const getApiKey = (): string => {
     const apiKey = localStorage.getItem('APIKey')
@@ -49,11 +49,6 @@ export function TranscriptCard() {
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     setApiKey(event.target.value)
-  }
-
-  const handleCleanButton = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setApiKey('')
-    setTranscription('')
   }
 
   const handleCopyTranscriptionButton = () => {
@@ -77,7 +72,8 @@ export function TranscriptCard() {
       })
       return
     }
-    if (!isValidFileType) {
+
+    if (!isValidFileType(file.name)) {
       toast({
         variant: 'destructive',
         title: 'Type file is not allowed.',
@@ -90,8 +86,13 @@ export function TranscriptCard() {
       toast({
         variant: 'destructive',
         title: 'Select an output language.',
-        description:
-          'Select a file of type .mp3, .mp4, .mpeg, .mpga, .m4a, .wav, .ogg or .webm.',
+      })
+      return
+    }
+    if (exportFormat === '') {
+      toast({
+        variant: 'destructive',
+        title: 'Select an export format.',
       })
       return
     }
@@ -99,7 +100,7 @@ export function TranscriptCard() {
   }
 
   const isValidFileType = (fileName: string) => {
-    const allowedExtensions = ACCEPTED_FILE_TYPES.split(',')
+    const allowedExtensions = ACCEPTED_FILE_TYPES.split(', ')
     const fileExtension = fileName.split('.').pop()
     return (
       fileExtension && allowedExtensions.includes(fileExtension.toLowerCase())
@@ -112,6 +113,8 @@ export function TranscriptCard() {
     const formData = new FormData()
     formData.append('file', file)
     formData.append('model', 'whisper-1')
+    formData.append('language', language)
+    formData.append('response_format', exportFormat)
     const response = await fetch(
       'https://api.openai.com/v1/audio/transcriptions',
       {
@@ -124,10 +127,12 @@ export function TranscriptCard() {
     )
     if (response.ok) {
       const res = await response.json()
-      setTranscription(res)
-      setIsEditorVisible(true)
       // TODO: fix fetch
       console.log(res)
+      console.log(response)
+
+      setTranscription(res)
+      setIsEditorVisible(true)
     } else {
       toast({
         variant: 'destructive',
@@ -185,7 +190,7 @@ export function TranscriptCard() {
                 <Label htmlFor='framework'>2. Upload file</Label>
                 <CustomTooltip
                   text='Types supported:
-          .mp3, .mp4, .mpeg, .mpga, .m4a, .wav, .ogg and .webm'
+          .mp3, .mp4, .mpeg, .mpga, .m4a, .wav, .ogg and .webm. Max file size: 25MB.'
                 >
                   <CircleHelp size={16} className='cursor-pointer' />
                 </CustomTooltip>
@@ -219,25 +224,25 @@ export function TranscriptCard() {
               </Button>
             </div>
             {/* TODO: fix fetch */}
-            {isEditorVisible && (
-              <>
-                <Separator className='' />
-                <CardTitle>Transcription</CardTitle>
-                <Editor
-                  transcription={transcription}
-                  setTranscription={setTranscription}
-                />
-                <div className='flex justify-end'>
-                  <Button
-                    onClick={() => {
-                      handleCopyTranscriptionButton()
-                    }}
-                  >
-                    Copy Transcription
-                  </Button>
-                </div>
-              </>
-            )}
+            {/* {isEditorVisible && ( */}
+            <>
+              <Separator className='' />
+              <CardTitle>Transcription</CardTitle>
+              <Editor
+                transcription={transcription}
+                setTranscription={setTranscription}
+              />
+              <div className='flex justify-end'>
+                <Button
+                  onClick={() => {
+                    handleCopyTranscriptionButton()
+                  }}
+                >
+                  Copy Transcription
+                </Button>
+              </div>
+            </>
+            {/* )} */}
           </div>
         </div>
       </CardContent>
