@@ -89,7 +89,7 @@ export function TranscriptCard() {
     if (language === '') {
       toast({
         variant: 'destructive',
-        title: 'Type file is not allowed.',
+        title: 'Select an output language.',
         description:
           'Select a file of type .mp3, .mp4, .mpeg, .mpga, .m4a, .wav, .ogg or .webm.',
       })
@@ -211,8 +211,8 @@ export function TranscriptCard() {
             <div className='flex flex-col space-y-1.5'>
               <Label htmlFor='framework'>5. Generate Transcription</Label>
               <Button
-                onClick={(e) => {
-                  handleGenerateTranscriptionButton(e)
+                onClick={() => {
+                  handleGenerateTranscriptionButton()
                 }}
               >
                 Generate Transcription
@@ -229,8 +229,8 @@ export function TranscriptCard() {
                 />
                 <div className='flex justify-end'>
                   <Button
-                    onClick={(e) => {
-                      handleCopyTranscriptionButton(e)
+                    onClick={() => {
+                      handleCopyTranscriptionButton()
                     }}
                   >
                     Copy Transcription
