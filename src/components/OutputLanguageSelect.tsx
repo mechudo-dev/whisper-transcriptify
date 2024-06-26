@@ -22,6 +22,7 @@ export function OutputLanguageSelect({
       onValueChange={(value) => {
         setLanguage(value)
       }}
+      value={language}
     >
       <SelectTrigger className='w-full'>
         <SelectValue placeholder='Languages' />

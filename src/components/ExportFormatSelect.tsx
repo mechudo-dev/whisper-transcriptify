@@ -22,6 +22,7 @@ export function ExportFormatSelect({
       onValueChange={(value) => {
         setExportFormat(value)
       }}
+      value={exportFormat}
     >
       <SelectTrigger className='w-full'>
         <SelectValue placeholder='Export Formats' />
@@ -29,9 +30,9 @@ export function ExportFormatSelect({
       <SelectContent>
         <SelectGroup>
           <SelectLabel>Export Formats</SelectLabel>
-          {EXPORT_FORMATS.map((language) => (
-            <SelectItem key={language} value={language}>
-              {language}
+          {EXPORT_FORMATS.map((formatItem) => (
+            <SelectItem key={formatItem} value={formatItem}>
+              {formatItem}
             </SelectItem>
           ))}
         </SelectGroup>

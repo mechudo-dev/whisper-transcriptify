@@ -26,8 +26,8 @@ export function TranscriptCard() {
   const { toast } = useToast()
   const [APIKey, setApiKey] = useState<string>('')
   const [file, setFile] = useState<File | null>(null)
-  const [language, setLanguage] = useState<string>('')
-  const [exportFormat, setExportFormat] = useState<string>('')
+  const [language, setLanguage] = useState<string>('English')
+  const [exportFormat, setExportFormat] = useState<string>('text')
   const [transcription, setTranscription] = useState<string>('')
   const [isEditorVisible, setIsEditorVisible] = useState<Boolean>(false)
 
@@ -125,10 +125,17 @@ export function TranscriptCard() {
         body: formData,
       }
     )
+
+    // const response = {
+    //   ok: true,
+    //   json: {
+    //       text: 'holi mundo',
+    //     }
+    //   },
+    // }
     if (response.ok) {
       const res = await response.json()
-      // TODO: fix fetch
-      console.log(res)
+      console.log(res.text)
       console.log(response)
 
       setTranscription(res)
@@ -224,25 +231,25 @@ export function TranscriptCard() {
               </Button>
             </div>
             {/* TODO: fix fetch */}
-            {/* {isEditorVisible && ( */}
-            <>
-              <Separator className='' />
-              <CardTitle>Transcription</CardTitle>
-              <Editor
-                transcription={transcription}
-                setTranscription={setTranscription}
-              />
-              <div className='flex justify-end'>
-                <Button
-                  onClick={() => {
-                    handleCopyTranscriptionButton()
-                  }}
-                >
-                  Copy Transcription
-                </Button>
-              </div>
-            </>
-            {/* )} */}
+            {isEditorVisible && (
+              <>
+                <Separator className='' />
+                <CardTitle>Transcription</CardTitle>
+                <Editor
+                  transcription={transcription}
+                  setTranscription={setTranscription}
+                />
+                <div className='flex justify-end'>
+                  <Button
+                    onClick={() => {
+                      handleCopyTranscriptionButton()
+                    }}
+                  >
+                    Copy Transcription
+                  </Button>
+                </div>
+              </>
+            )}
           </div>
         </div>
       </CardContent>
