@@ -231,7 +231,6 @@ export function TranscriptCard() {
               Generate Transcription
             </Button>
           </div>
-          {/* TODO: fix fetch */}
           {isEditorVisible && (
             <>
               <Separator className='' />
