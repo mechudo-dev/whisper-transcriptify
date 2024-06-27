@@ -8,7 +8,7 @@ export default function NotFound() {
       <div className='relative mb-4 h-32 w-32 text-muted-foreground'>
         <TrafficCone className='w-full h-full' />
       </div>
-      <h3 className='tracking-widest text-2xl'>You Got Lost.</h3>
+      <h3 className='tracking-widest text-2xl'>YOU GOT LOST.</h3>
       <p className='text-muted-foreground text-center'>
         The page you are looking for could not be found.
       </p>
