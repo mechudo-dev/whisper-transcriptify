@@ -167,90 +167,88 @@ export function TranscriptCard() {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <div>
-          <div className='grid w-full items-center gap-4'>
-            <div className='flex flex-col space-y-1.5'>
-              <div className='flex flex-row gap-1'>
-                <Label htmlFor='apikey'>1. Enter your OpenAI API Key</Label>
-                <CustomTooltip text='Go to the OpenIA Platform page, enter your account or create a new one and in the API Keys window generate a new key and copy it here.'>
-                  <CircleHelp size={16} className='cursor-pointer' />
-                </CustomTooltip>
-              </div>
-              <div className='flex gap-2'>
-                <Input
-                  onChange={handleAPIKeyInputChange}
-                  id='apikey'
-                  placeholder='OpenAI API'
-                  value={APIKey}
-                />
-                <Button
-                  onClick={(e) => {
-                    handleSaveAPIKey(e)
-                  }}
-                >
-                  Save OpenIA API Key
-                </Button>
-              </div>
+        <div className='grid w-full items-center gap-4'>
+          <div className='flex flex-col space-y-1.5'>
+            <div className='flex flex-row gap-1'>
+              <Label htmlFor='apikey'>1. Enter your OpenAI API Key</Label>
+              <CustomTooltip text='Go to the OpenIA Platform page, enter your account or create a new one and in the API Keys window generate a new key and copy it here.'>
+                <CircleHelp size={16} className='cursor-pointer' />
+              </CustomTooltip>
             </div>
-            <div className='flex flex-col space-y-1.5'>
-              <div className='flex flex-row gap-1'>
-                <Label htmlFor='framework'>2. Upload file</Label>
-                <CustomTooltip
-                  text='Types supported:
-          .mp3, .mp4, .mpeg, .mpga, .m4a, .wav, .ogg and .webm. Max file size: 25MB.'
-                >
-                  <CircleHelp size={16} className='cursor-pointer' />
-                </CustomTooltip>
-              </div>
-              <FileInput file={file} setFile={setFile} />
-            </div>
-            <div className='grid gap-2 justify-around grid-cols-2'>
-              <div className='flex flex-col space-y-1.5'>
-                <Label htmlFor='framework'>3. Select output language</Label>
-                <OutputLanguageSelect
-                  language={language}
-                  setLanguage={setLanguage}
-                />
-              </div>
-              <div className='flex flex-col space-y-1.5'>
-                <Label htmlFor='framework'>4. Select export format</Label>
-                <ExportFormatSelect
-                  exportFormat={exportFormat}
-                  setExportFormat={setExportFormat}
-                />
-              </div>
-            </div>
-            <div className='flex flex-col space-y-1.5'>
-              <Label htmlFor='framework'>5. Generate Transcription</Label>
+            <div className='flex sm:flex-row flex-col gap-2'>
+              <Input
+                onChange={handleAPIKeyInputChange}
+                id='apikey'
+                placeholder='OpenAI API'
+                value={APIKey}
+              />
               <Button
-                onClick={() => {
-                  handleGenerateTranscriptionButton()
+                onClick={(e) => {
+                  handleSaveAPIKey(e)
                 }}
               >
-                Generate Transcription
+                Save OpenIA API Key
               </Button>
             </div>
-            {/* TODO: fix fetch */}
-            {isEditorVisible && (
-              <>
-                <Separator className='' />
-                <CardTitle>Transcription</CardTitle>
-                <Editor
-                  transcription={transcription}
-                  setTranscription={setTranscription}
-                />
-                <div className='flex justify-end'>
-                  <Button
-                    onClick={() => {
-                      handleCopyTranscriptionButton()
-                    }}
-                  >
-                    Copy Transcription
-                  </Button>
-                </div>
-              </>
-            )}
           </div>
+          <div className='flex flex-col space-y-1.5'>
+            <div className='flex flex-row gap-1'>
+              <Label htmlFor='framework'>2. Upload file</Label>
+              <CustomTooltip
+                text='Types supported:
+          .mp3, .mp4, .mpeg, .mpga, .m4a, .wav, .ogg and .webm. Max file size: 25MB.'
+              >
+                <CircleHelp size={16} className='cursor-pointer' />
+              </CustomTooltip>
+            </div>
+            <FileInput file={file} setFile={setFile} />
+          </div>
+          <div className='sm:grid gap-2 justify-around sm:grid-cols-2 flex flex-col'>
+            <div className='flex flex-col space-y-1.5'>
+              <Label htmlFor='framework'>3. Select output language</Label>
+              <OutputLanguageSelect
+                language={language}
+                setLanguage={setLanguage}
+              />
+            </div>
+            <div className='flex flex-col space-y-1.5'>
+              <Label htmlFor='framework'>4. Select export format</Label>
+              <ExportFormatSelect
+                exportFormat={exportFormat}
+                setExportFormat={setExportFormat}
+              />
+            </div>
+          </div>
+          <div className='flex flex-col space-y-1.5'>
+            <Label htmlFor='framework'>5. Generate Transcription</Label>
+            <Button
+              onClick={() => {
+                handleGenerateTranscriptionButton()
+              }}
+            >
+              Generate Transcription
+            </Button>
+          </div>
+          {/* TODO: fix fetch */}
+          {isEditorVisible && (
+            <>
+              <Separator className='' />
+              <CardTitle>Transcription</CardTitle>
+              <Editor
+                transcription={transcription}
+                setTranscription={setTranscription}
+              />
+              <div className='flex justify-end'>
+                <Button
+                  onClick={() => {
+                    handleCopyTranscriptionButton()
+                  }}
+                >
+                  Copy Transcription
+                </Button>
+              </div>
+            </>
+          )}
         </div>
       </CardContent>
     </Card>

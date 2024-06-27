@@ -75,7 +75,7 @@ export function FileInput({
       htmlFor='dropzone-file'
       className={`file-uploader border ${
         drag ? 'bg-slate-900' : 'bg-background '
-      } p-4 rounded-md cursor-pointer h-32 w-full flex items-center justify-center dark:hover:bg-slate-900  hover:bg-muted border-dashed hover:border-primary hover:border-2 transition-all duration-1000`}
+      } p-2 sm:p-4 rounded-md cursor-pointer h-32 w-full flex items-center justify-center dark:hover:bg-slate-900  hover:bg-muted border-dashed hover:border-primary hover:border-2 transition-all duration-1000`}
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}
       onDrop={handleDrop}
@@ -96,13 +96,13 @@ export function FileInput({
               </div>
             </div>
           ) : (
-            <div className='flex flex-col items-center justify-center  p-5'>
-              <UploadCloud className='w-8 h-8 mb-2' />
-              <p className='mb-2 text-sm text-gray-500 dark:text-gray-400'>
+            <div className='flex flex-col items-center justify-center sm:p-5'>
+              <UploadCloud className='sm:w-8 sm:h-8 w-6 h-6 mb-2' />
+              <p className='text-center mb-2 text-xs sm:text-sm text-gray-500 dark:text-gray-400'>
                 <span className='font-semibold'>Click to upload</span> or drag
                 and drop
               </p>
-              <p className='text-xs text-gray-500 dark:text-gray-400'>
+              <p className='text-center text-xs text-gray-500 dark:text-gray-400'>
                 (types supported: .mp3, .mp4, .mpeg, .mpga, .m4a, .wav, .ogg and
                 .webm)
               </p>

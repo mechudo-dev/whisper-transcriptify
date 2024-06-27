@@ -5,6 +5,7 @@ import { ThemeProvider } from '@/components/theme-provider'
 import { ModeToggle } from '@/components/ModeToggle'
 import Navbar from '@/components/Navbar'
 import { Toaster } from '@/components/ui/toaster'
+import GoogleAdsense from '@/components/GoogleAdsense'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -31,7 +32,11 @@ export default function RootLayout({
           >
             <main className='relative flex flex-col min-h-screen '>
               <Navbar />
-              {children}
+              <div className='flex flex-row gap-4 justify-center items-center'>
+                <GoogleAdsense />
+                {children}
+                <GoogleAdsense />
+              </div>
             </main>
             <Toaster />
           </ThemeProvider>
