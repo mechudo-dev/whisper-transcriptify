@@ -5,7 +5,6 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
@@ -18,9 +17,12 @@ import { useToast } from '@/components/ui/use-toast'
 import { Separator } from './ui/separator'
 import { CircleHelp } from 'lucide-react'
 import { CustomTooltip } from './CustomTooltip'
-import { ACCEPTED_FILE_TYPES } from '@/lib/const'
-import { OutputLanguageSelect } from './OutputLanguageSelect'
-import { ExportFormatSelect } from './ExportFormatSelect'
+import {
+  ACCEPTED_FILE_TYPES,
+  EXPORT_FORMATS,
+  OUTPUT_LANGUAGES,
+} from '@/lib/const'
+import { CustomSelect } from './CustomSelect'
 
 export function TranscriptCard() {
   const { toast } = useToast()
@@ -148,10 +150,6 @@ export function TranscriptCard() {
     }
   }
 
-  // useEffect(() => {
-  //   console.log(transcription)
-  // }, [transcription])
-
   useEffect(() => {
     setApiKey(getApiKey)
   }, [])
@@ -206,16 +204,20 @@ export function TranscriptCard() {
           <div className='sm:grid gap-2 justify-around sm:grid-cols-2 flex flex-col'>
             <div className='flex flex-col space-y-1.5'>
               <Label htmlFor='framework'>3. Select output language</Label>
-              <OutputLanguageSelect
-                language={language}
-                setLanguage={setLanguage}
+              <CustomSelect
+                value={language}
+                setValue={setLanguage}
+                options={OUTPUT_LANGUAGES}
+                placeHolder='Languages'
               />
             </div>
             <div className='flex flex-col space-y-1.5'>
               <Label htmlFor='framework'>4. Select export format</Label>
-              <ExportFormatSelect
-                exportFormat={exportFormat}
-                setExportFormat={setExportFormat}
+              <CustomSelect
+                value={exportFormat}
+                setValue={setExportFormat}
+                options={EXPORT_FORMATS}
+                placeHolder='Export Formats'
               />
             </div>
           </div>

@@ -7,32 +7,35 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { OUTPUT_LANGUAGES } from '@/lib/const'
 import { Dispatch, SetStateAction } from 'react'
 
-export function OutputLanguageSelect({
-  language,
-  setLanguage,
+export function CustomSelect({
+  value,
+  setValue,
+  placeHolder,
+  options,
 }: {
-  language: string
-  setLanguage: Dispatch<SetStateAction<string>>
+  value: string
+  setValue: Dispatch<SetStateAction<string>>
+  placeHolder: string
+  options: string[]
 }) {
   return (
     <Select
       onValueChange={(value) => {
-        setLanguage(value)
+        setValue(value)
       }}
-      value={language}
+      value={value}
     >
       <SelectTrigger className='w-full'>
-        <SelectValue placeholder='Languages' />
+        <SelectValue placeholder={placeHolder} />
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
-          <SelectLabel>Languages</SelectLabel>
-          {OUTPUT_LANGUAGES.map((language) => (
-            <SelectItem key={language} value={language}>
-              {language}
+          <SelectLabel>{placeHolder}</SelectLabel>
+          {options.map((optionItem) => (
+            <SelectItem key={optionItem} value={optionItem}>
+              {optionItem}
             </SelectItem>
           ))}
         </SelectGroup>
