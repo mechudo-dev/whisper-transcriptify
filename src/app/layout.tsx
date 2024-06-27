@@ -6,6 +6,7 @@ import { ModeToggle } from '@/components/ModeToggle'
 import Navbar from '@/components/Navbar'
 import { Toaster } from '@/components/ui/toaster'
 import GoogleAdsense from '@/components/GoogleAdsense'
+import Script from 'next/script'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -22,7 +23,13 @@ export default function RootLayout({
   return (
     <>
       <html lang='en' suppressHydrationWarning>
-        <head />
+        <head>
+          <Script
+            async
+            src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8574483971880465'
+            crossOrigin='anonymous'
+          />
+        </head>
         <body className={inter.className}>
           <ThemeProvider
             attribute='class'
