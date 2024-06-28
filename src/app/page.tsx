@@ -1,5 +1,6 @@
 'use client'
 
+import AdBanner from '@/components/AdBanner'
 import { TranscriptCard } from '@/components/TranscriptCard'
 
 export default function Home() {
@@ -10,7 +11,23 @@ export default function Home() {
         your <span className='text-primary'>audio files</span>.
       </h1>
       <div className='flex sm:flex-row gap-2 items-center flex-col'>
-        <TranscriptCard />
+        <div className='flex flex-row gap-4 justify-center items-center'>
+          <div className='bg-white w-28 h-96'>
+            <AdBanner
+              dataAdFormat='auto'
+              dataAdSlot='9212563774'
+              dataFullWidthResponsive={true}
+            />
+          </div>
+          <TranscriptCard />
+          <div className='bg-white w-28 h-96'>
+            <AdBanner
+              dataAdFormat='auto'
+              dataAdSlot='9212563774'
+              dataFullWidthResponsive={true}
+            />
+          </div>
+        </div>
       </div>
     </main>
   )

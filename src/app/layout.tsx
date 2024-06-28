@@ -2,11 +2,10 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
 import { ThemeProvider } from '@/components/theme-provider'
-import { ModeToggle } from '@/components/ModeToggle'
 import Navbar from '@/components/Navbar'
 import { Toaster } from '@/components/ui/toaster'
-import GoogleAdsense from '@/components/GoogleAdsense'
-import Script from 'next/script'
+import AdSense from '@/components/AdSense'
+import AdBanner from '@/components/AdBanner'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -24,11 +23,7 @@ export default function RootLayout({
     <>
       <html lang='en' suppressHydrationWarning>
         <head>
-          <Script
-            async
-            src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8574483971880465'
-            crossOrigin='anonymous'
-          />
+          <AdSense pId='ca-pub-8574483971880465' />
         </head>
         <body className={inter.className}>
           <ThemeProvider
@@ -40,9 +35,7 @@ export default function RootLayout({
             <main className='relative flex flex-col min-h-screen '>
               <Navbar />
               <div className='flex flex-row gap-4 justify-center items-center'>
-                <GoogleAdsense />
                 {children}
-                <GoogleAdsense />
               </div>
             </main>
             <Toaster />
